@@ -1,14 +1,15 @@
-import { hash } from "bcryptjs";
+import { hash, compare } from "bcryptjs";
 import prisma from "../prisma";
+import {sign} from 'jsonwebtoken'
 
-interface UserCreateRequest{
-    name: string,
+interface UserRequest{
+    name?: string,
     email: string,
     password: string
 }
 
 class UserService{
-    async create({name, email, password}: UserCreateRequest){
+    async create({name, email, password}: UserRequest){
         
         if(!name){
             throw new Error("Nome do usuário é obrigatório.")
@@ -28,7 +29,7 @@ class UserService{
         })
 
         if(userAlreadyExist){
-            throw new Error("Usurário já existe.")
+            throw new Error("Usuário já existe.")
         }
 
         const passwordHash = await hash(password, 8)
@@ -50,6 +51,51 @@ class UserService{
         })
 
         return newUser
+    }
+
+    async auth({email, password}:UserRequest){
+        if(!email){
+            throw new Error("Email do usuário é obrigatório.")
+        }
+        if(!password){
+            throw new Error("Senha do usuário é obrigatório.")
+        }
+
+        const user = await prisma.user.findFirst({
+            where:{
+                email:email
+            }
+        })
+
+        if(!user){
+            throw new Error("Usuário não existe.")
+        }
+
+        const passwordMatch = await compare(password, user.password)
+
+        if(!passwordMatch){
+            throw new Error("Usuário/Senha incorreto.")
+        }
+
+        const token = sign(
+            {
+                name:user.name,
+                email:user.name,
+            },
+            process.env.JWT_SECRET,
+            {
+                subject:user.id,
+                expiresIn:'30d'
+            }
+
+        )
+
+        return {
+            id:user.id,
+            name:user.id,
+            email:user.id,
+            token:token
+        }
     }
 
 }
