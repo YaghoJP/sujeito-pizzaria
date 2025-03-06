@@ -33,6 +33,33 @@ class OrderController{
             return res.status(400).json({Error:err.message})
         }
     }
+
+    async addItemOrder(req: Request, res:Response){
+        try{
+          
+            const {orderID, productID, amount} = req.body
+
+            const item = await this.orderService.addItemOrder({orderID, productID, amount})
+
+            return res.status(200).json(item)
+        }catch(err:any){
+            return res.status(400).json({Error:err.message})
+        }
+    }
+
+    async removeItemOrder(req: Request, res:Response){
+        try{
+          
+            const itemID = req.query.itemID as string
+
+            const item = await this.orderService.removeItemOrder(itemID)
+
+            return res.status(200).json(item)
+        }catch(err:any){
+            return res.status(400).json({Error:err.message})
+        }
+    }
+
 }
 
 export {OrderController}

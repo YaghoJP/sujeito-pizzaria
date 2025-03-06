@@ -31,6 +31,8 @@ router.get('/category/product', isAuthenticated, productController.listByCategor
 const orderController = new OrderController();
 router.post('/order', isAuthenticated, orderController.create.bind(orderController))
 router.delete('/order', isAuthenticated, orderController.remove.bind(orderController))
+router.post('/order/add', isAuthenticated, orderController.addItemOrder.bind(orderController))
+router.delete('/order/remove', isAuthenticated, orderController.removeItemOrder.bind(orderController))
 
 
 export {router};
