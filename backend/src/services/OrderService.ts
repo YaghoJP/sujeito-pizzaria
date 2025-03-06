@@ -74,6 +74,59 @@ class OrderService{
             })
         )
     }
+
+    async sendOrder(orderID: string){
+        return(
+            await prisma.order.update({
+                where:{
+                    id:orderID
+                },
+                data:{
+                    draft:false
+                }
+            })
+        )
+    }
+    async listOrders(){
+        return(
+            await prisma.order.findMany({
+                where:{
+                    draft:false,
+                    status:false
+                },
+                orderBy:{
+                    createAt:'desc'
+                }
+            })
+        )
+    }
+
+    async detailOrders(orderID:string){
+        return(
+            await prisma.item.findFirst({
+                where:{
+                    order_id:orderID
+                },
+                include:{
+                    product:true,
+                    order:true
+                }
+            })
+        )
+    }
+
+    async finishOrder(orderID:string){
+        return(
+            await prisma.order.update({
+                where:{
+                    id:orderID
+                },
+                data:{
+                    status:true
+                }
+            })
+        )
+    }
 }
 
 export {OrderService}

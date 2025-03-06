@@ -33,6 +33,10 @@ router.post('/order', isAuthenticated, orderController.create.bind(orderControll
 router.delete('/order', isAuthenticated, orderController.remove.bind(orderController))
 router.post('/order/add', isAuthenticated, orderController.addItemOrder.bind(orderController))
 router.delete('/order/remove', isAuthenticated, orderController.removeItemOrder.bind(orderController))
+router.put('/order/send', isAuthenticated, orderController.sendOrder.bind(orderController))
+router.get('/orders', isAuthenticated, orderController.listOrders.bind(orderController))
+router.get('/order/detail', isAuthenticated, orderController.detailOrder.bind(orderController))
+router.put('/order/finish', isAuthenticated, orderController.finishOrder.bind(orderController))
 
 
 export {router};

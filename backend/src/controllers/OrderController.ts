@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { OrderService } from "../services/OrderService";
+import prisma from "../prisma";
 
 class OrderController{
     private orderService: OrderService
@@ -55,6 +56,56 @@ class OrderController{
             const item = await this.orderService.removeItemOrder(itemID)
 
             return res.status(200).json(item)
+        }catch(err:any){
+            return res.status(400).json({Error:err.message})
+        }
+    }
+
+    async sendOrder(req: Request, res:Response){
+        try{
+          
+            const {orderID} = req.body
+
+            const order = await this.orderService.sendOrder(orderID)
+
+            return res.status(200).json(order)
+        }catch(err:any){
+            return res.status(400).json({Error:err.message})
+        }
+    }
+
+    async listOrders(req: Request, res:Response){
+        try{
+          
+            const orders = await this.orderService.listOrders()
+
+            return res.status(200).json(orders)
+        }catch(err:any){
+            return res.status(400).json({Error:err.message})
+        }
+    }
+
+    async detailOrder(req: Request, res:Response){
+        try{
+
+            const orderID = req.query.orderID as string
+            
+            const order = await this.orderService.detailOrders(orderID)
+
+            return res.status(200).json(order)
+        }catch(err:any){
+            return res.status(400).json({Error:err.message})
+        }
+    }
+
+    async finishOrder(req: Request, res:Response){
+        try{
+
+            const {orderID} = req.body
+            
+            const order = await this.orderService.finishOrder(orderID)
+
+            return res.status(200).json(order)
         }catch(err:any){
             return res.status(400).json({Error:err.message})
         }
