@@ -30,6 +30,18 @@ class UserController{
             return res.status(400).json({Error:err.message})
         }
     }
+    async detail(req: Request, res: Response){
+        try{
+            
+            const userId = req.user_id
+
+            const userDetail =  await this.userService.detail(userId)
+
+            return res.status(200).json(userDetail)
+        }catch(err:any){
+            return res.status(400).json({Error:err.message})
+        }
+    }
 }
 
 export {UserController}

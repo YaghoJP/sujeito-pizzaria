@@ -89,13 +89,26 @@ class UserService{
             }
 
         )
-
         return {
             id:user.id,
             name:user.id,
             email:user.id,
             token:token
         }
+    }
+
+    async detail(userId: string){
+        const user = await prisma.user.findFirst({
+            where:{
+                id:userId
+            },
+            select:{
+                id:true,
+                name:true,
+                email:true
+            }
+        })
+        return user
     }
 
 }
