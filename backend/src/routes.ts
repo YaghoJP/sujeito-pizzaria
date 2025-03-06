@@ -6,6 +6,7 @@ import { isAuthenticated } from "./middlewares/isAuthenticated";
 import { CategoryController } from "./controllers/CategoryController";
 import { ProductController } from "./controllers/ProductController";
 import uploadConfig from './config/multer'
+import { OrderController } from "./controllers/OrderController";
 
 const router = Router();
 
@@ -24,5 +25,12 @@ router.get('/category', isAuthenticated,categoryController.list.bind(categoryCon
 
 const productController = new ProductController();
 router.post('/product', isAuthenticated, upload.single('file'), productController.create.bind(productController))
+router.get('/category/product', isAuthenticated, productController.listByCategory.bind(productController))
+
+
+const orderController = new OrderController();
+router.post('/order', isAuthenticated, orderController.create.bind(orderController))
+router.delete('/order', isAuthenticated, orderController.remove.bind(orderController))
+
 
 export {router};

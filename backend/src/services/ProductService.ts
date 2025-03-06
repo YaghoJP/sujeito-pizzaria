@@ -23,8 +23,32 @@ class ProductService{
                 description:description,
                 category_id:categoryId,
                 banner:banner
+            },
+            select:{
+                name:true,
+                price:true,
+                description:true,
+                banner:true
             }
         })
+
+        return produto;
+    }
+
+    async listByCategory(categoryID:string){
+        return(
+            await prisma.product.findMany({
+                where:{
+                    category_id:categoryID
+                },
+                select:{
+                    name:true,
+                    price:true,
+                    description:true,
+                    banner:true
+                }
+            })
+        )
     }
 }
 
