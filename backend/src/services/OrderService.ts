@@ -1,4 +1,3 @@
-import { Item } from "@prisma/client";
 import prisma from "../prisma";
 
 interface OrderRequest{

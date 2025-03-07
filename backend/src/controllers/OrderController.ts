@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { OrderService } from "../services/OrderService";
-import prisma from "../prisma";
 
 class OrderController{
     private orderService: OrderService
