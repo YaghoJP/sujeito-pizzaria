@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { Button } from '@/app/dashboard/components/button'
 import { api } from '@/services/api'
 import { getCookieClient } from '@/lib/cookieClient'
+import { toast } from 'sonner'
 
 interface CategoryProps{
   id: string;
@@ -29,6 +30,7 @@ export function Form({ categories }: Props ){
     const description = formData.get("description")
 
     if(!name || !categoryIndex || !price || !description || !image){
+      toast.error('Informe todos os produtos.')
       return;
     }
 
@@ -48,11 +50,11 @@ export function Form({ categories }: Props ){
       }
     })
     .catch((err) => {
-      console.log(err);
+      toast.warning('Falha ao cadastrar esse produto.')
       return;
     })
 
-    console.log("CADASTRADO COM SUCESSO!")
+    toast.success('Produto registrado com sucesso!')
 
   }
 
@@ -61,7 +63,7 @@ export function Form({ categories }: Props ){
       const image = e.target.files[0];
 
       if(image.type !== "image/jpeg" && image.type !== "image/png"){
-        console.log("FORMATO PROIBIDO!!!")
+        toast.error('Formato de imagem proíbido. Tente com PNG ou JPEG')
         return;
       }
 

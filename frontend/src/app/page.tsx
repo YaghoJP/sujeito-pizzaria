@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { api } from '@/services/api'
 import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
+import { toast } from 'sonner'
 
 export default function Page(){
 
@@ -46,7 +47,6 @@ export default function Page(){
       console.log(err);
       return;
     }
-
     redirect("/dashboard")
 
   }
