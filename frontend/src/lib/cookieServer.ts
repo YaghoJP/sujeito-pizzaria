@@ -1,10 +1,10 @@
-import { cookies } from "next/headers";
+import { cookies } from 'next/headers'
 
 export async function getCookieServer(){
 
-    const cookieStore = await cookies();
+  const cookie = await cookies()
 
-    const token = cookieStore.get('session')?.value;
+  const token = cookie.get("session")?.value;
 
-    return token || null;
+  return token || null;
 }

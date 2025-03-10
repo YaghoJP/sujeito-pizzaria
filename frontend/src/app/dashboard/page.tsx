@@ -1,9 +1,9 @@
 import { Orders } from "./components/orders";
 
-export default function DashBoard(){
-    return(
-        <>
-            <Orders/>
-        </>
-    )
+export default function Dashboard(){
+  return(
+    <>
+     <Orders/>
+    </>
+  )
 }

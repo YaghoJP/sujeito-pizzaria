@@ -1,38 +1,35 @@
 import styles from './styles.module.scss'
-import { RefreshCcw } from 'lucide-react'
+import { RefreshCw } from 'lucide-react'
 
 export function Orders(){
-    return(
-        <main className={styles.container}>
-            <section className={styles.ContainerHeader}>
+  return(
+    <main className={styles.container}>
 
-                <h1>Pedidos</h1>
+      <section className={styles.containerHeader}>
+        <h1>Últimos pedidos</h1>
+        <button>
+          <RefreshCw size={24} color="#3fffa3" />
+        </button>
+      </section>
 
-                <button>
-                    <RefreshCcw 
-                        size={24}
-                        color='#3fffa3'
-                    />
-                </button>
+      <section className={styles.listOrders}>
 
-            </section>
+        <button
+          className={styles.orderItem}
+        >
+          <div className={styles.tag}></div>
+          <span>Mesa 10</span>
+        </button>
 
-            <section className={styles.listOrders}>
-                <button className={styles.orderItem}>
-                    <div className={styles.tag}>
+        <button
+          className={styles.orderItem}
+        >
+          <div className={styles.tag}></div>
+          <span>Mesa 13</span>
+        </button>        
 
-                    </div>
-                    <span>Mesa 10</span>
-                </button>
-
-                <button className={styles.orderItem}>
-                    <div className={styles.tag}>
-
-                    </div>
-                    <span>Mesa 20</span>
-                </button>
-
-            </section>
-        </main>
-    )
+      </section>
+     
+    </main>
+  )
 }
