@@ -73,7 +73,6 @@ export function Form({ categories }: Props ){
     }
   }
 
-
   return(
     <main className={styles.container}>
       <h1>Novo produto</h1>
