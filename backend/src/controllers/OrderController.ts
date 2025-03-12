@@ -87,7 +87,7 @@ class OrderController{
     async detailOrder(req: Request, res:Response){
         try{
 
-            const orderID = req.query.orderID as string
+            const orderID = req.query.orderId as string
             
             const order = await this.orderService.detailOrders(orderID)
 
@@ -100,9 +100,9 @@ class OrderController{
     async finishOrder(req: Request, res:Response){
         try{
 
-            const {orderID} = req.body
+            const {orderId} = req.body
             
-            const order = await this.orderService.finishOrder(orderID)
+            const order = await this.orderService.finishOrder(orderId)
 
             return res.status(200).json(order)
         }catch(err:any){
