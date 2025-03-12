@@ -1,7 +1,8 @@
 
 export interface OrderProps{
-    id:string,
-    table:number,
-    status:boolean,
-    draft:boolean,
+  id: string;
+  table: number;
+  name: string;
+  draft: boolean;
+  status: boolean;
 }

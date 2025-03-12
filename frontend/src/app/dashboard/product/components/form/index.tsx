@@ -8,6 +8,7 @@ import { Button } from '@/app/dashboard/components/button'
 import { api } from '@/services/api'
 import { getCookieClient } from '@/lib/cookieClient'
 import { toast } from 'sonner'
+import { useRouter } from 'next/navigation'
 
 interface CategoryProps{
   id: string;
@@ -19,6 +20,7 @@ interface Props{
 }
 
 export function Form({ categories }: Props ){
+  const router = useRouter();
   const [image, setImage] = useState<File>()
   const [previewImage, setPreviewImage] = useState("")
 
@@ -30,7 +32,7 @@ export function Form({ categories }: Props ){
     const description = formData.get("description")
 
     if(!name || !categoryIndex || !price || !description || !image){
-      toast.error('Informe todos os produtos.')
+      toast.warning("Preencha todos os campos!")
       return;
     }
 
@@ -39,10 +41,10 @@ export function Form({ categories }: Props ){
     data.append("name", name)
     data.append("price", price)
     data.append("description", description)
-    data.append("categoryId", categories[Number(categoryIndex)].id)
+    data.append("category_id", categories[Number(categoryIndex)].id)
     data.append("file", image)
 
-    const token = await getCookieClient();
+    const token = getCookieClient();
 
     await api.post("/product", data, {
       headers:{
@@ -50,11 +52,13 @@ export function Form({ categories }: Props ){
       }
     })
     .catch((err) => {
-      toast.warning('Falha ao cadastrar esse produto.')
+      console.log(err);
+      toast.warning("Falha ao cadastrar esse produto!")
       return;
     })
 
-    toast.success('Produto registrado com sucesso!')
+    toast.success("Produto registrado com sucesso!")
+    router.push("/dashboard")
 
   }
 
@@ -63,7 +67,7 @@ export function Form({ categories }: Props ){
       const image = e.target.files[0];
 
       if(image.type !== "image/jpeg" && image.type !== "image/png"){
-        toast.error('Formato de imagem proíbido. Tente com PNG ou JPEG')
+        toast.warning("Formato não permitido!")
         return;
       }
 
@@ -72,6 +76,7 @@ export function Form({ categories }: Props ){
 
     }
   }
+
 
   return(
     <main className={styles.container}>

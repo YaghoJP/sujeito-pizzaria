@@ -4,7 +4,7 @@ import { getCookieServer } from '@/lib/cookieServer'
 
 export default async function Product(){
 
-  const token = await getCookieServer();
+  const token = getCookieServer();
 
   const response = await api.get("/category", {
     headers: {

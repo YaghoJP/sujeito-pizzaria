@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { api } from '@/services/api'
 import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
-import { toast } from 'sonner'
 
 export default function Page(){
 
@@ -33,9 +32,7 @@ export default function Page(){
       console.log(response.data);
 
       const expressTime = 60 * 60 * 24 * 30 * 1000;
-
-      const cookie = await cookies();
-
+      const cookie = await cookies()
       cookie.set("session", response.data.token, {
         maxAge: expressTime,
         path: "/",
@@ -47,6 +44,7 @@ export default function Page(){
       console.log(err);
       return;
     }
+
     redirect("/dashboard")
 
   }
