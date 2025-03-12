@@ -90,7 +90,7 @@ class OrderService{
         return(
             await prisma.order.findMany({
                 where:{
-                    draft:false,
+                    draft:true,
                     status:false
                 },
                 orderBy:{
@@ -102,7 +102,7 @@ class OrderService{
 
     async detailOrders(orderID:string){
         return(
-            await prisma.item.findFirst({
+            await prisma.item.findMany({
                 where:{
                     order_id:orderID
                 },
