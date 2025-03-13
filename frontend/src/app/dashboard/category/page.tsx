@@ -26,12 +26,10 @@ export default function Category(){
       }
     })
     .catch((err) => {
-      toast.error('Não foi possível cadastrar essa categoria.')
       console.log(err);
       return;
     })
 
-    toast.success('Categoria cadastrada com sucesso.')
     redirect("/dashboard")
 
   }
