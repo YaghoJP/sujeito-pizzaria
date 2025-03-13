@@ -24,7 +24,8 @@ router.get('/category', isAuthenticated,categoryController.list.bind(categoryCon
 
 
 const productController = new ProductController();
-router.post('/product', isAuthenticated, upload.single('file'), productController.create.bind(productController))
+//router.post('/product', isAuthenticated, upload.single('file'), productController.create.bind(productController))
+router.post('/product', isAuthenticated, productController.create.bind(productController))
 router.get('/category/product', isAuthenticated, productController.listByCategory.bind(productController))
 
 
