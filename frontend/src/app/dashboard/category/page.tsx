@@ -3,7 +3,7 @@ import { Button } from "@/app/dashboard/components/button"
 import { api } from '@/services/api'
 import { redirect } from 'next/navigation'
 import { getCookieServer } from '@/lib/cookieServer'
-import { toast } from 'sonner'
+
 
 export default function Category(){
 
